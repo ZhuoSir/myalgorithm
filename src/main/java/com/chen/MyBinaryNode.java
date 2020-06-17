@@ -12,4 +12,9 @@ public class MyBinaryNode {
         this.leftNode = leftNode;
         this.rightNode = rightNode;
     }
+
+    @Override
+    public String toString() {
+        return "" + element;
+    }
 }

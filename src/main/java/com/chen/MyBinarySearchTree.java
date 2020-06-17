@@ -1,8 +1,6 @@
 package com.chen;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 public class MyBinarySearchTree {
 
@@ -119,6 +117,11 @@ public class MyBinarySearchTree {
         return (remove(element, root) != null);
     }
 
+    /**
+     * 二叉树的翻转
+     *
+     *
+     * */
     public void reverse() {
         reverse(root);
     }
@@ -224,11 +227,81 @@ public class MyBinarySearchTree {
     }
 
 
+    /**
+     * 从上到下遍历树的每一层节点打印出来；
+     *
+     * */
+    public List<Integer> print() {
+        return print(root);
+    }
+
+    public List<Integer> print(MyBinaryNode node) {
+
+        if (node == null) {
+            return null;
+        }
+
+        List<Integer> array = new ArrayList<Integer>();
+        Queue<MyBinaryNode> queue = new LinkedList<MyBinaryNode>();
+
+        queue.add(node);
+        while (!queue.isEmpty()) {
+
+            MyBinaryNode node1 = queue.poll();
+            if (node1.leftNode != null) {
+                queue.add(node1.leftNode);
+            }
+
+            if (node1.rightNode != null) {
+                queue.add(node1.rightNode);
+            }
+
+            array.add(node1.element);
+        }
+        return array;
+    }
+
+    /**
+     * 判断已知的一个二叉树是否是对称的。
+     *
+     * 算法思想是：首先判断这棵树是否为空树，如果空树则直接返回true
+     *
+     * 如果不为空，则在进行分类：case1：节点的左右子树为空，则直接返回true
+     *
+     * case2：节点的左右子树有一个为空，则直接返回false
+     *
+     * case3：节点的左右子树均不为空，
+     * 则判断节点的左右子节点的值是否相等并且判断左节点的子左节点和右节点的右子节点是否对称还有左节点的右子节点和右节点的左子节点是否对称
+     *
+     * @param pRoot
+     * @return
+     */
+    public boolean isSymmetrical() {
+        if (root == null)
+            return true;
+
+        else
+            return isSymmetrical(root.leftNode, root.rightNode);
+    }
+
+
+    public boolean isSymmetrical(MyBinaryNode left, MyBinaryNode right) {
+        if (left == null || right == null) {
+            return false;
+        }
+
+        return (left.element == right.element)
+                && isSymmetrical(left.leftNode, right.rightNode)
+                && isSymmetrical(left.rightNode, right.leftNode);
+    }
+
+
+
     public static void main(String[] args) {
 
         MyBinarySearchTree myBinarySearchTree = new MyBinarySearchTree();
 
-        Random random = new Random(1234);
+        Random random = new Random(3255);
         for (int i = 0; i < 10; i++) {
             int r = random.nextInt(1000);
             myBinarySearchTree.insert(r);
@@ -251,12 +324,15 @@ public class MyBinarySearchTree {
 //        System.out.println(myBinarySearchTree.remove(641));
 
 //        myBinarySearchTree.reverse();
-        System.out.println(myBinarySearchTree.inorderRecursion());
+//        System.out.println(myBinarySearchTree.inorderRecursion());
+//
+//        System.out.println(myBinarySearchTree.preOrderRecursion());
+//
+//        System.out.println(myBinarySearchTree.postOrderRecursion());
 
-        System.out.println(myBinarySearchTree.preOrderRecursion());
+        System.out.println(myBinarySearchTree.print());
 
-        System.out.println(myBinarySearchTree.postOrderRecursion());
-
+        System.out.println(myBinarySearchTree.isSymmetrical());
     }
 
 }
