@@ -285,6 +285,14 @@ public class MyBinarySearchTree {
     }
 
 
+    /**
+     * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
+     *
+     *
+     * 1.从第0位开始，找到第一位比根节点大的元素，记录此位置i。在此位置之前都属于左子树（此时已经断定左子树都小于根节点）
+     * 2.检查右子树是否都大于跟节点（从第i位开始，到根节点前）
+     * 3.判断左右子树是否都属于二叉搜索树。
+     * */
     public boolean isSymmetrical(MyBinaryNode left, MyBinaryNode right) {
         if (left == null || right == null) {
             return false;
@@ -296,6 +304,48 @@ public class MyBinarySearchTree {
     }
 
 
+    public boolean verifySequenceIsBstPostOrder(Integer[] array) {
+        if (array.length == 0)
+            return false;
+
+        return judge(array, 0, array.length - 1);
+    }
+
+
+    public boolean judge(Integer[] array, int start, int end) {
+        if (start >= end) {
+            return true;
+        }
+
+        int i, j;
+        if ((end - start) <= 1) {
+            return true;
+        }
+
+        for (i = start; i < end; i++) {
+            if (array[i] > array[end]) {
+                break;
+            }
+        }
+
+        for (j = i; j < end; j++) {
+            if (array[j] < array[end]) {
+                return false;
+            }
+        }
+
+        boolean left = false;
+        boolean right = false;
+
+        if (i > 0) {
+            left = judge(array, start, i - 1);
+        }
+        if (i < array.length - 1) {
+            right = judge(array, i, end-1);
+        }
+
+        return left && right;
+    }
 
     public static void main(String[] args) {
 
@@ -328,11 +378,18 @@ public class MyBinarySearchTree {
 //
 //        System.out.println(myBinarySearchTree.preOrderRecursion());
 //
-//        System.out.println(myBinarySearchTree.postOrderRecursion());
+        System.out.println(myBinarySearchTree.postOrderRecursion());
 
-        System.out.println(myBinarySearchTree.print());
+        List<Integer> postOrder = myBinarySearchTree.postOrderRecursion();
+        System.out.println(postOrder);
 
-        System.out.println(myBinarySearchTree.isSymmetrical());
+        Integer[] array = new Integer[postOrder.size()];
+        for (int i = 0; i<postOrder.size(); i++) {
+            array[i] = postOrder.get(i);
+        }
+
+        System.out.println(myBinarySearchTree.verifySequenceIsBstPostOrder(array));
+
     }
 
 }
