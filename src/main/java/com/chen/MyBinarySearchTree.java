@@ -10,6 +10,10 @@ public class MyBinarySearchTree {
         root = null;
     }
 
+    public MyBinarySearchTree(MyBinaryNode root) {
+        this.root = root;
+    }
+
     public Integer findMax() {
         MyBinaryNode max = findMax(root);
         return max != null ? max.element : null;
@@ -86,8 +90,10 @@ public class MyBinarySearchTree {
 
         if (element < node.element) {
             node.leftNode  = insert(element, node.leftNode);
+            node.leftNode.parentNode = node;
         } else if (element > node.element){
             node.rightNode = insert(element, node.rightNode);
+            node.rightNode.parentNode = node;
         }
         return node;
     }
@@ -141,6 +147,20 @@ public class MyBinarySearchTree {
         reverse(node.leftNode);
         reverse(node.rightNode);
     }
+
+
+    /**
+     * 找出二叉树中的第 K 大节点
+     *
+     * */
+    public Integer numberthInOrderRecursion(int key) {
+        List<Integer> list = inorderRecursion();
+        if (list != null && !list.isEmpty() && list.size() > key - 1)
+            return list.get(key-1);
+        else
+            return null;
+    }
+
 
     /**
      * 中序遍历
@@ -273,7 +293,6 @@ public class MyBinarySearchTree {
      * case3：节点的左右子树均不为空，
      * 则判断节点的左右子节点的值是否相等并且判断左节点的子左节点和右节点的右子节点是否对称还有左节点的右子节点和右节点的左子节点是否对称
      *
-     * @param pRoot
      * @return
      */
     public boolean isSymmetrical() {
@@ -304,6 +323,11 @@ public class MyBinarySearchTree {
     }
 
 
+    /**
+     * 验证输入的数组是否是二叉树的后序遍历结果
+     *
+     *
+     * */
     public boolean verifySequenceIsBstPostOrder(Integer[] array) {
         if (array.length == 0)
             return false;
@@ -347,6 +371,54 @@ public class MyBinarySearchTree {
         return left && right;
     }
 
+    /**
+     * 二叉树的序列化
+     *
+     *
+     * */
+    public String serialize() {
+        return serialize(root);
+    }
+
+    public String serialize(MyBinaryNode node) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        if (node == null)
+            return stringBuilder.append("#,").toString();
+
+        stringBuilder.append(node.element + ",");
+        stringBuilder.append(serialize(node.leftNode));
+        stringBuilder.append(serialize(node.rightNode));
+
+        return stringBuilder.toString();
+    }
+
+    int index = -1;
+
+    /**
+     * 二叉树的反序列化
+     *
+     *
+     * */
+    public void deserialize(String serialize) {
+        String[] strings = serialize.split(",");
+        index = -1;
+        root = deserialize(strings);
+    }
+
+    public MyBinaryNode deserialize(String[] strings) {
+        index++;
+        MyBinaryNode node = null;
+        if (!strings[index].equals("#")) {
+            node = new MyBinaryNode(Integer.valueOf(strings[index]));
+            node.leftNode = deserialize(strings);
+            node.rightNode = deserialize(strings);
+        }
+
+        return node;
+    }
+
+
     public static void main(String[] args) {
 
         MyBinarySearchTree myBinarySearchTree = new MyBinarySearchTree();
@@ -378,18 +450,30 @@ public class MyBinarySearchTree {
 //
 //        System.out.println(myBinarySearchTree.preOrderRecursion());
 //
-        System.out.println(myBinarySearchTree.postOrderRecursion());
+//        System.out.println(myBinarySearchTree.postOrderRecursion());
+//
+//        List<Integer> postOrder = myBinarySearchTree.postOrderRecursion();
+//        System.out.println(postOrder);
+//
+//        Integer[] array = new Integer[postOrder.size()];
+//        for (int i = 0; i<postOrder.size(); i++) {
+//            array[i] = postOrder.get(i);
+//        }
+//
+//        System.out.println(myBinarySearchTree.verifySequenceIsBstPostOrder(array));
 
-        List<Integer> postOrder = myBinarySearchTree.postOrderRecursion();
-        System.out.println(postOrder);
 
-        Integer[] array = new Integer[postOrder.size()];
-        for (int i = 0; i<postOrder.size(); i++) {
-            array[i] = postOrder.get(i);
-        }
+//        System.out.println(myBinarySearchTree.serialize());
+//        String str = myBinarySearchTree.serialize();
+//
+//        MyBinarySearchTree myBinarySearchTree1 = new MyBinarySearchTree();
+//        myBinarySearchTree1.deserialize(str);
+//
+//        System.out.println(myBinarySearchTree1.serialize());
 
-        System.out.println(myBinarySearchTree.verifySequenceIsBstPostOrder(array));
-
+        System.out.println(myBinarySearchTree.inorderRecursion());
+        System.out.println(myBinarySearchTree.numberthInOrderRecursion(10));
+        System.out.println(myBinarySearchTree.depth());
     }
 
 }

@@ -7,6 +7,12 @@ public class MyBinaryNode {
     MyBinaryNode leftNode;
     MyBinaryNode rightNode;
 
+    MyBinaryNode parentNode;
+
+    public MyBinaryNode(int element) {
+        this.element = element;
+    }
+
     public MyBinaryNode(int element, MyBinaryNode leftNode, MyBinaryNode rightNode) {
         this.element = element;
         this.leftNode = leftNode;
