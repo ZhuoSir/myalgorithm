@@ -1,18 +1,17 @@
 package com.chen;
 
+import org.junit.Test;
+
 import java.util.*;
 
-public class MyBinarySearchTree {
+public class MyBinaryTree {
 
     private MyBinaryNode root;
 
-    public MyBinarySearchTree() {
+    public MyBinaryTree() {
         root = null;
     }
 
-    public MyBinarySearchTree(MyBinaryNode root) {
-        this.root = root;
-    }
 
     public Integer findMax() {
         MyBinaryNode max = findMax(root);
@@ -90,10 +89,10 @@ public class MyBinarySearchTree {
 
         if (element < node.element) {
             node.leftNode  = insert(element, node.leftNode);
-            node.leftNode.parentNode = node;
+//            node.leftNode.parentNode = node;
         } else if (element > node.element){
             node.rightNode = insert(element, node.rightNode);
-            node.rightNode.parentNode = node;
+//            node.rightNode.parentNode = node;
         }
         return node;
     }
@@ -251,11 +250,11 @@ public class MyBinarySearchTree {
      * 从上到下遍历树的每一层节点打印出来；
      *
      * */
-    public List<Integer> print() {
-        return print(root);
+    public List<Integer> topToBottomOrderRecursion() {
+        return topToBottomOrderRecursion(root);
     }
 
-    public List<Integer> print(MyBinaryNode node) {
+    public List<Integer> topToBottomOrderRecursion(MyBinaryNode node) {
 
         if (node == null) {
             return null;
@@ -304,16 +303,12 @@ public class MyBinarySearchTree {
     }
 
 
-    /**
-     * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
-     *
-     *
-     * 1.从第0位开始，找到第一位比根节点大的元素，记录此位置i。在此位置之前都属于左子树（此时已经断定左子树都小于根节点）
-     * 2.检查右子树是否都大于跟节点（从第i位开始，到根节点前）
-     * 3.判断左右子树是否都属于二叉搜索树。
-     * */
     public boolean isSymmetrical(MyBinaryNode left, MyBinaryNode right) {
-        if (left == null || right == null) {
+        if (left == null && right == null) {
+            return true;
+        }
+
+        if (left == null || right == null ) {
             return false;
         }
 
@@ -324,9 +319,12 @@ public class MyBinarySearchTree {
 
 
     /**
-     * 验证输入的数组是否是二叉树的后序遍历结果
+     * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则输出Yes,否则输出No。假设输入的数组的任意两个数字都互不相同。
      *
      *
+     * 1.从第0位开始，找到第一位比根节点大的元素，记录此位置i。在此位置之前都属于左子树（此时已经断定左子树都小于根节点）
+     * 2.检查右子树是否都大于跟节点（从第i位开始，到根节点前）
+     * 3.判断左右子树是否都属于二叉搜索树。
      * */
     public boolean verifySequenceIsBstPostOrder(Integer[] array) {
         if (array.length == 0)
@@ -421,38 +419,38 @@ public class MyBinarySearchTree {
 
     public static void main(String[] args) {
 
-        MyBinarySearchTree myBinarySearchTree = new MyBinarySearchTree();
+        MyBinaryTree myBinaryTree = new MyBinaryTree();
 
         Random random = new Random(3255);
         for (int i = 0; i < 10; i++) {
             int r = random.nextInt(1000);
-            myBinarySearchTree.insert(r);
+            myBinaryTree.insert(r);
         }
 
-//        int max = myBinarySearchTree.findMax();
-//        int min = myBinarySearchTree.findMin();
+//        int max = myBinaryTree.findMax();
+//        int min = myBinaryTree.findMin();
 //
 //        System.out.println(max);
 //        System.out.println(min);
 //
-//        System.out.println(myBinarySearchTree.nodeCount());
-//        System.out.println(myBinarySearchTree.depth());
+//        System.out.println(myBinaryTree.nodeCount());
+//        System.out.println(myBinaryTree.depth());
 //
 //
-//        System.out.println(myBinarySearchTree.remove(7));
-//        System.out.println(myBinarySearchTree.nodeCount());
+//        System.out.println(myBinaryTree.remove(7));
+//        System.out.println(myBinaryTree.nodeCount());
 
-//        System.out.println(myBinarySearchTree.inorderRecursion());
-//        System.out.println(myBinarySearchTree.remove(641));
+//        System.out.println(myBinaryTree.inorderRecursion());
+//        System.out.println(myBinaryTree.remove(641));
 
-//        myBinarySearchTree.reverse();
-//        System.out.println(myBinarySearchTree.inorderRecursion());
+//        myBinaryTree.reverse();
+//        System.out.println(myBinaryTree.inorderRecursion());
 //
-//        System.out.println(myBinarySearchTree.preOrderRecursion());
+//        System.out.println(myBinaryTree.preOrderRecursion());
 //
-//        System.out.println(myBinarySearchTree.postOrderRecursion());
+//        System.out.println(myBinaryTree.postOrderRecursion());
 //
-//        List<Integer> postOrder = myBinarySearchTree.postOrderRecursion();
+//        List<Integer> postOrder = myBinaryTree.postOrderRecursion();
 //        System.out.println(postOrder);
 //
 //        Integer[] array = new Integer[postOrder.size()];
@@ -460,20 +458,30 @@ public class MyBinarySearchTree {
 //            array[i] = postOrder.get(i);
 //        }
 //
-//        System.out.println(myBinarySearchTree.verifySequenceIsBstPostOrder(array));
+//        System.out.println(myBinaryTree.verifySequenceIsBstPostOrder(array));
 
 
-//        System.out.println(myBinarySearchTree.serialize());
-//        String str = myBinarySearchTree.serialize();
+//        System.out.println(myBinaryTree.serialize());
+//        String str = myBinaryTree.serialize();
 //
-//        MyBinarySearchTree myBinarySearchTree1 = new MyBinarySearchTree();
+//        MyBinaryTree myBinarySearchTree1 = new MyBinaryTree();
 //        myBinarySearchTree1.deserialize(str);
 //
 //        System.out.println(myBinarySearchTree1.serialize());
 
-        System.out.println(myBinarySearchTree.inorderRecursion());
-        System.out.println(myBinarySearchTree.numberthInOrderRecursion(10));
-        System.out.println(myBinarySearchTree.depth());
+        System.out.println(myBinaryTree.inorderRecursion());
+        System.out.println(myBinaryTree.numberthInOrderRecursion(10));
+        System.out.println(myBinaryTree.depth());
     }
 
+    @Test
+    public void test1() {
+
+        MyBinaryTree myBinaryTree = new MyBinaryTree();
+        myBinaryTree.insert(5);
+        myBinaryTree.insert(1);
+        myBinaryTree.insert(7);
+
+        myBinaryTree.remove(1);
+    }
 }
