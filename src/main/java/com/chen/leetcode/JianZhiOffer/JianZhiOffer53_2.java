@@ -54,19 +54,24 @@ public class JianZhiOffer53_2 {
     }
 
     /**
-     * 本题也属于简单的二分查找，题意明确了所有数是递增的，且所有数的取值范围均在[0,n-1]上并且是唯一的，因此可以发现这样一个规律：
-     * (1)只要查询过程中nums[i] == i，那么缺失的值一定在i的右侧；
-     * (2)如果查询过程中nums[i] > i，那么缺失的值一定在左侧
-     * 所以最后只要返回left即为结果(具体流程见代码)。
+     * 算法解析：
+     * 初始化： 左边界 i = 0i=0 ，右边界 j = len(nums) - 1j=len(nums)−1 ；代表闭区间 [i, j][i,j] 。
+     * 循环二分： 当 i \leq ji≤j 时循环 （即当闭区间 [i, j][i,j] 为空时跳出） ；
+     * 计算中点 m = (i + j) // 2m=(i+j)//2 ，其中 "////" 为向下取整除法；
+     * 若 nums[m] = mnums[m]=m ，则 “右子数组的首位元素” 一定在闭区间 [m + 1, j][m+1,j] 中，因此执行 i = m + 1i=m+1；
+     * 若 nums[m] \ne mnums[m]
+     * 
+     * ​
+     *  =m ，则 “左子数组的末位元素” 一定在闭区间 [i, m - 1][i,m−1] 中，因此执行 j = m - 1j=m−1；
+     * 返回值： 跳出时，变量 ii 和 jj 分别指向 “右子数组的首位元素” 和 “左子数组的末位元素” 。因此返回 ii 即可。
      *
-     *
-     * 时间复杂度：O(logN)
-     * 空间复杂度：O(1)
-     *
-     * 作者：yi-wen-statistics
-     * 链接：https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/solution/ha-xi-biao-er-fen-cha-zhao-by-yi-wen-statistics/
+     * 作者：jyd
+     * 链接：https://leetcode-cn.com/problems/que-shi-de-shu-zi-lcof/solution/mian-shi-ti-53-ii-0n-1zhong-que-shi-de-shu-zi-er-f/
      * 来源：力扣（LeetCode）
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
+     *
+     * 时间复杂度 O(log N)O(logN)： 二分法为对数级别复杂度。
+     * 空间复杂度 O(1)O(1)： 几个变量使用常数大小的额外空间。
      *
      *
      * */
