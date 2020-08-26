@@ -88,6 +88,11 @@ public class $236 {
         TreeNode node0 = new TreeNode(0);
         TreeNode node8 = new TreeNode(8);
 
+
+        TreeNode node10 = new TreeNode(10);
+
+
+
         root.left = node3;
 
         node3.left = node5;
@@ -102,7 +107,7 @@ public class $236 {
         node1.left = node0;
         node1.right = node8;
 
-        System.out.println(lowestCommonAncestor(root, node5, node1));
+        System.out.println(lowestCommonAncestor(root, node6, node2));
     }
 
 }
