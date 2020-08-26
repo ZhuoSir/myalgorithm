@@ -57,23 +57,6 @@ public class $98 {
         return isValid(node.right);
     }
 
-    public class TreeNode {
-        int val;
-        TreeNode left;
-        TreeNode right;
-
-        TreeNode(int x) {
-            val = x;
-        }
-
-        @Override
-        public String toString() {
-            return "TreeNode{" +
-                    "val=" + val +
-                    '}';
-        }
-    }
-
 
     @Test
     public void test() {
