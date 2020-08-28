@@ -1,4 +1,4 @@
-package com.chen.leetcode.string;
+package com.chen.leetcode.hash;
 
 import org.junit.Test;
 
