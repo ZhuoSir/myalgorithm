@@ -1,6 +1,7 @@
 package com.chen.leetcode.bfs;
 
 import com.chen.leetcode.common.ListNode;
+import com.chen.leetcode.common.Node;
 import com.chen.leetcode.common.TreeNode;
 import org.junit.Test;
 
@@ -34,6 +35,8 @@ import java.util.*;
 public class $MianShi0403 {
 
     /**
+     * 广度优先
+     *
      * 层序遍历算法
      *
      *
@@ -78,16 +81,53 @@ public class $MianShi0403 {
                 continue;
             }
 
-
             lastSize = queue.size();
             level = null;
             head  = null;
         }
 
-        ListNode[] res = new ListNode[ret.size()];
-        res = ret.toArray(res);
-        return res;
+        return ret.toArray(new ListNode[] {});
     }
+
+    /**
+     * 深度优先遍历
+     *
+     *
+     * */
+    public ListNode[] listOfDepth2(TreeNode tree) {
+
+        ListNode[] nodes = new ListNode[depth(tree)];
+
+        dfs(nodes, tree, 0);
+
+        return nodes;
+    }
+
+    private void dfs(ListNode[] nodes, TreeNode treeNode, int level) {
+
+        if (treeNode == null)
+            return;
+
+        if (nodes[level] == null) {
+            nodes[level] = new ListNode(treeNode.val);
+        } else {
+            ListNode node = new ListNode(treeNode.val);
+            node.next = nodes[level];
+            nodes[level] = node;
+        }
+
+        dfs(nodes, treeNode.right, level+1);
+        dfs(nodes, treeNode.left, level+1);
+    }
+
+    private int depth(TreeNode tree) {
+
+        if (tree == null)
+            return 0;
+
+        return 1 + Math.max(depth(tree.left), depth(tree.right));
+    }
+
 
     @Test
     public void test() {
@@ -110,7 +150,7 @@ public class $MianShi0403 {
 
         node4.left = node8;
 
-        ListNode[] res = listOfDepth(root);
+        ListNode[] res = listOfDepth2(root);
         System.out.println(res);
     }
 }
