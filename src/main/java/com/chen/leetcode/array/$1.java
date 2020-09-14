@@ -75,6 +75,6 @@ public class $1 {
         int[] nums = {2, 7, 11, 15};
 
 
-        System.out.println(Arrays.asList(nums));
+        System.out.println(Arrays.asList(twoSum(nums, 9)));
     }
 }

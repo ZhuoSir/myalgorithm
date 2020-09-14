@@ -1,4 +1,4 @@
-package com.chen.leetcode.tree;
+package com.chen.leetcode.common;
 
 import java.util.List;
 

@@ -1,10 +1,9 @@
 package com.chen.leetcode.tree;
 
+import com.chen.leetcode.common.TreeNode;
 import org.junit.Test;
 
-import java.util.ArrayDeque;
 import java.util.LinkedList;
-import java.util.Queue;
 
 /**
  * 101

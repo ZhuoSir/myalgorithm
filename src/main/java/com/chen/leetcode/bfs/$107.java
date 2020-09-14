@@ -1,6 +1,6 @@
 package com.chen.leetcode.bfs;
 
-import com.chen.leetcode.tree.TreeNode;
+import com.chen.leetcode.common.TreeNode;
 
 import java.util.*;
 

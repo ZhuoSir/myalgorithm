@@ -1,5 +1,6 @@
 package com.chen.leetcode.tree;
 
+import com.chen.leetcode.common.TreeNode;
 import org.junit.Test;
 
 import java.util.HashMap;

@@ -1,11 +1,11 @@
 package com.chen.leetcode.tree;
 
+import com.chen.leetcode.common.Node;
 import javafx.util.Pair;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Queue;
 import java.util.Stack;
 
 /**
