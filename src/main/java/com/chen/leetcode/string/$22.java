@@ -30,7 +30,12 @@ import java.util.List;
  * */
 public class $22 {
 
-
+    /**
+     * 深度优先递归搜索
+     *
+     * 时间复杂度O(2^n)
+     *
+     * */
     public List<String> generateParenthesis(int n) {
         List<String> res = new ArrayList<>();
         if (n == 0)
@@ -44,16 +49,15 @@ public class $22 {
             res.add(str);
             return;
         }
-        if (left > right) return;
 
         if (left > 0)
             dfs(str + "(", left - 1, right, res);
-        if (right > 0)
+        if (right > left)
             dfs(str + ")", left, right - 1, res);
     }
 
     @Test
     public void test() {
-        System.out.println(generateParenthesis(2));
+        System.out.println(generateParenthesis(3));
     }
 }
