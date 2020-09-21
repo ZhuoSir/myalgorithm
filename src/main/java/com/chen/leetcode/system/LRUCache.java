@@ -108,7 +108,10 @@ public class LRUCache {
     public void print() {
         DLinkedNode node = head.next;
         while (node != tail) {
-            System.out.print(node.val + "->");
+            System.out.print(node.val);
+            if (node.next != tail) {
+                System.out.print("->");
+            }
             node = node.next;
         }
         System.out.println();
