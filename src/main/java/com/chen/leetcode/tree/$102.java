@@ -69,6 +69,10 @@ public class $102 {
         return ret;
     }
 
+    /**
+     * 深度优先实现
+     *
+     * */
     public List<List<Integer>> levelOrder2(TreeNode root) {
 
         List<List<Integer>> res = new ArrayList<>();
