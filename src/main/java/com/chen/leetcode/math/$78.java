@@ -39,22 +39,21 @@ public class $78 {
 
     /**
      * https://leetcode-cn.com/problems/subsets/solution/zi-ji-by-leetcode-solution/
-     *
+     * <p>
      * 回溯法求值
-     *
+     * <p>
      * 时间复杂度：O(n \times 2 ^ n)O(n×2
      * n
-     *  )。一共 2^n2
+     * )。一共 2^n2
      * n
-     *   个状态，每种状态需要 O(n)O(n) 的时间来构造子集。
+     * 个状态，每种状态需要 O(n)O(n) 的时间来构造子集。
      * 空间复杂度：O(n)O(n)。临时数组 tt 的空间代价是 O(n)O(n)，递归时栈空间的代价为 O(n)O(n)
-     *
+     * <p>
      * 作者：LeetCode-Solution
      * 链接：https://leetcode-cn.com/problems/subsets/solution/zi-ji-by-leetcode-solution/
      * 来源：力扣（LeetCode）
      * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
-     *
-     * */
+     */
     public List<List<Integer>> subsets(int[] nums) {
         if (nums == null)
             return null;
@@ -74,6 +73,23 @@ public class $78 {
         dfs(depth + 1, nums, temp);
     }
 
+    public List<List<Integer>> subsets3(int[] nums) {
+        if (nums == null)
+            return null;
+        dfs2(0, nums, new ArrayList<>());
+        return res;
+    }
+
+    private void dfs2(int depth, int[] nums, ArrayList<Integer> temp) {
+        res.add(new ArrayList<>(temp));
+        for (int i = depth; i < nums.length; i++) {
+            temp.add(nums[i]);
+            dfs2(i + 1, nums, temp);
+            temp.remove(temp.size() - 1);
+        }
+    }
+
+
     public List<List<Integer>> subsets2(int[] nums) {
         List<List<Integer>> res = new ArrayList<>();
         res.add(new ArrayList<>());
@@ -90,6 +106,6 @@ public class $78 {
 
     @Test
     public void test() {
-        System.out.println(subsets2(new int[]{1, 2, 3}));
+        System.out.println(subsets3(new int[]{1, 2, 3}));
     }
 }
