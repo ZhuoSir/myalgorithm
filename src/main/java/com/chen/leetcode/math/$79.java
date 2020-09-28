@@ -124,6 +124,85 @@ public class $79 {
         return res;
     }
 
+
+    public boolean exist2(char[][] board, String word) {
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (search(board, word, i, j, 0)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    boolean search(char[][] board, String word, int i, int j, int k) {
+        if (k >= word.length()) return true;
+        if (i < 0 || i >= board.length || j < 0 || j >= board[0].length || board[i][j] != word.charAt(k)) return false;
+        board[i][j] += 256;
+        boolean result = search(board, word, i - 1, j, k + 1) || search(board, word, i + 1, j, k + 1)
+                || search(board, word, i, j - 1, k + 1) || search(board, word, i, j + 1, k + 1);
+        board[i][j] -= 256;
+        return result;
+    }
+
+
+    public boolean exist3(char[][] board, String word) {
+        int len = word.length();
+        boolean[][] used = new boolean[board.length][board[0].length];
+        return dfs2(board, word, len, 0, -1, -1, used);
+    }
+
+    public boolean dfs2(char[][] board, String word, int len, int index, int lastR, int lastC, boolean[][] used) {
+        if (index == len) {
+            return true;
+        }
+        char ch = word.charAt(index);
+        if (index == 0) {
+            for (int r = 0; r < board.length; r++) {
+                for (int c = 0; c < board[0].length; c++) {
+                    if (board[r][c] == ch) {
+                        used[r][c] = true;
+                        if (dfs2(board, word, len, index + 1, r, c, used)) {
+                            return true;
+                        }
+                        used[r][c] = false;
+                    }
+                }
+            }
+            return false;
+        }
+        if (lastR - 1 >= 0 && !used[lastR - 1][lastC] && ch == board[lastR - 1][lastC]) {
+            used[lastR - 1][lastC] = true;
+            if (dfs2(board, word, len, index + 1, lastR - 1, lastC, used)) {
+                return true;
+            }
+            used[lastR - 1][lastC] = false;
+        }
+        if (lastR + 1 < board.length && !used[lastR + 1][lastC] && ch == board[lastR + 1][lastC]) {
+            used[lastR + 1][lastC] = true;
+            if (dfs2(board, word, len, index + 1, lastR + 1, lastC, used)) {
+                return true;
+            }
+            used[lastR + 1][lastC] = false;
+        }
+        if (lastC - 1 >= 0 && !used[lastR][lastC - 1] && ch == board[lastR][lastC - 1]) {
+            used[lastR][lastC - 1] = true;
+            if (dfs2(board, word, len, index + 1, lastR, lastC - 1, used)) {
+                return true;
+            }
+            used[lastR][lastC - 1] = false;
+        }
+        if (lastC + 1 < board[0].length && !used[lastR][lastC + 1] && ch == board[lastR][lastC + 1]) {
+            used[lastR][lastC + 1] = true;
+            if (dfs2(board, word, len, index + 1, lastR, lastC + 1, used)) {
+                return true;
+            }
+            used[lastR][lastC + 1] = false;
+        }
+        return false;
+    }
+
     @Test
     public void test() {
 
@@ -134,8 +213,8 @@ public class $79 {
                         {'A', 'D', 'E', 'E'}
                 };
 
-        String word = "SEE";
+        String word = "ABCCE";
 
-        System.out.println(exist(board, word));
+        System.out.println(exist3(board, word));
     }
 }
