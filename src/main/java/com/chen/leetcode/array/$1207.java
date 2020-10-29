@@ -33,7 +33,6 @@ import java.util.Map;
 public class $1207 {
 
     public boolean uniqueOccurrences(int[] arr) {
-
         Map<Integer, Integer> counter = new HashMap<>();
         for (int elem : arr)
             counter.put(elem, counter.getOrDefault(elem, 0) + 1);
