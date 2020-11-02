@@ -48,14 +48,28 @@ import java.util.*;
 public class $140 {
 
     List<List<String>> strs = new ArrayList<>();
-
     Set<String> wordSet = null;
 
     public List<String> wordBreak(String s, List<String> wordDict) {
         List<String> res = new ArrayList<>();
         wordSet = new HashSet<>(wordDict);
-        dfs(new ArrayList<>(), s, 0);
-        if (strs == null) return null;
+        boolean[] dp = new boolean[s.length() + 1];
+        dp[0] = true;
+        for (int i = 0; i < s.length(); i++) {
+            if (!dp[i]) continue;
+            for (int j = i + 1; j < s.length() + 1; j++) {
+                if (wordSet.contains(s.substring(i, j))) {
+                    dp[j] = true;
+                }
+            }
+        }
+
+        if (dp[s.length()]) {
+            dfs(new ArrayList<>(), s, 0, dp);
+            if (strs == null) return null;
+        }
+
+
         for (int i = 0; i < strs.size(); i++) {
             StringBuilder str = new StringBuilder();
             List<String> list = strs.get(i);
@@ -70,22 +84,21 @@ public class $140 {
         return res;
     }
 
-    private void dfs(List<String> list, String word, int start) {
+    private void dfs(List<String> list, String word, int start, boolean[] dp) {
         if (start == word.length()) {
             strs.add(new ArrayList<>(list));
             return;
         }
-
         StringBuilder tmp = new StringBuilder();
         for (int i = start; i < word.length(); i++) {
             tmp.append(word.charAt(i));
+            if (!dp[i+1]) continue;
             if (wordSet.contains(tmp.toString())) {
                 list.add(tmp.toString());
-                dfs(list, word, i + 1);
+                dfs(list, word, i + 1, dp);
                 list.remove(list.size() - 1);
             }
         }
-
         return;
     }
 
@@ -136,7 +149,7 @@ public class $140 {
      */
     private void dfs2(String s, int len, Set<String> wordSet, boolean[] dp, Deque<String> path, List<String> res) {
         if (len == 0) {
-            res.add(String.join(" ",path));
+            res.add(String.join(" ", path));
             return;
         }
 
@@ -153,7 +166,7 @@ public class $140 {
 
     @Test
     public void test() {
-        String word = "catsandog";
+        String word = "catsanddog";
         List<String> dict = Arrays.asList("cat", "cats", "and", "sand", "dog");
         System.out.println(wordBreak(word, dict));
     }
@@ -170,6 +183,6 @@ public class $140 {
 
         String word = "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaabaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa";
         List<String> dict = Arrays.asList("a", "aa", "aaa", "aaaa", "aaaaa", "aaaaaa", "aaaaaaa", "aaaaaaaa", "aaaaaaaaa", "aaaaaaaaaa");
-        System.out.println(wordBreak2(word, dict));
+        System.out.println(wordBreak(word, dict));
     }
 }
