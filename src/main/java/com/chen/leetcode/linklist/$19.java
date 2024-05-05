@@ -3,6 +3,9 @@ package com.chen.leetcode.linklist;
 import com.chen.leetcode.common.ListNode;
 import org.junit.Test;
 
+import java.util.Deque;
+import java.util.LinkedList;
+
 /**
  * 给定一个链表，删除链表的倒数第 n 个节点，并且返回链表的头结点。
  * <p>
@@ -49,6 +52,23 @@ public class $19 {
             head = node2.next;
         node2 = null;
         return head;
+    }
+
+    public ListNode removeNthFromEnd2(ListNode head, int n) {
+        ListNode dummy = new ListNode(0, head);
+        Deque<ListNode> stack = new LinkedList<ListNode>();
+        ListNode cur = dummy;
+        while (cur != null) {
+            stack.push(cur);
+            cur = cur.next;
+        }
+        for (int i = 0; i < n; ++i) {
+            stack.pop();
+        }
+        ListNode prev = stack.peek();
+        prev.next = prev.next.next;
+        ListNode ans = dummy.next;
+        return ans;
     }
 
     @Test
